@@ -1,0 +1,513 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgriSmart | Smart Crop Recommendation</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+    background: #f3f9ef;
+    color: #153c25;
+}
+
+/* NAVBAR */
+.navbar {
+    background: #03451f;
+    min-height: 72px;
+    padding: 12px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.logo {
+    color: white;
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.logo span { color: #a8e64e; }
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.nav-links a:hover { color: #a8e64e; }
+
+.nav-tag {
+    background: #176d2d;
+    color: white;
+    border-radius: 25px;
+    padding: 10px 17px;
+    font-size: 12px;
+}
+
+/* HERO */
+.hero {
+    min-height: 390px;
+    display: flex;
+    align-items: center;
+    padding: 55px 8%;
+    background:
+    linear-gradient(90deg, rgba(2,43,20,.88), rgba(2,43,20,.12)),
+    url("https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1900&q=90");
+    background-position: center;
+    background-size: cover;
+    color: white;
+}
+
+.hero-content { max-width: 680px; }
+
+.hero h1 {
+    font-size: clamp(36px, 5vw, 58px);
+    font-weight: 800;
+    line-height: 1.17;
+    margin-bottom: 15px;
+}
+
+.hero h1 span { color: #a9ed4f; }
+
+.hero p {
+    font-size: 17px;
+    line-height: 1.8;
+    margin-bottom: 23px;
+}
+
+.hero-button {
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+    background: #08712e;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-weight: 600;
+}
+
+/* FORM AREA */
+.form-section {
+    padding: 55px 6%;
+    background: #f1f8ed;
+}
+
+.heading {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.heading h2 {
+    font-size: 30px;
+    color: #07512b;
+}
+
+.heading p {
+    color: #718275;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+.form-card {
+    max-width: 1120px;
+    margin: auto;
+    padding: 35px;
+    background: white;
+    border-radius: 22px;
+    box-shadow: 0 12px 35px rgba(12,65,29,.12);
+    border: 1px solid #e3eee0;
+}
+
+.form-heading {
+    max-width: 600px;
+    margin: -62px auto 32px;
+    background: linear-gradient(110deg, #08712d, #03451f);
+    color: white;
+    border-radius: 40px;
+    text-align: center;
+    padding: 17px 20px;
+    font-size: 21px;
+    font-weight: 700;
+    box-shadow: 0 5px 15px rgba(0,60,20,.15);
+}
+
+.input-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.input-box {
+    padding: 15px;
+    background: #fbfdfb;
+    border: 1px solid #e7eee5;
+    border-radius: 13px;
+    transition: .25s;
+}
+
+.input-box:focus-within {
+    border-color: #26954a;
+    box-shadow: 0 5px 15px rgba(20,120,50,.09);
+}
+
+.input-box label {
+    display: block;
+    color: #183e27;
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccd9ce;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+    background: white;
+}
+
+.input-box input:focus {
+    border-color: #19853d;
+}
+
+.input-box input::placeholder {
+    color: #9ba99e;
+}
+
+.hint {
+    display: block;
+    color: #829186;
+    font-size: 11px;
+    margin-top: 7px;
+}
+
+.submit-area {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.submit-btn {
+    background: linear-gradient(120deg, #15953c, #05602a);
+    border: none;
+    color: white;
+    padding: 16px 42px;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.submit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,90,35,.22);
+}
+
+/* RESULT */
+.result {
+    margin-top: 30px;
+    text-align: center;
+    background: #e8f7e9;
+    border: 1px solid #b9dfbd;
+    border-radius: 15px;
+    padding: 25px;
+}
+
+.result h3 { color: #07512b; }
+
+.crop-name {
+    color: #168c37;
+    font-size: 32px;
+    font-weight: 800;
+    text-transform: capitalize;
+    margin: 10px 0;
+}
+
+.error {
+    text-align: center;
+    color: #bd2525;
+    margin-top: 20px;
+}
+
+/* FEATURES */
+.features {
+    background: white;
+    padding: 35px 7%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    text-align: center;
+}
+
+.feature-icon { font-size: 32px; }
+
+.feature h3 {
+    color: #07512b;
+    font-size: 15px;
+    margin: 8px 0;
+}
+
+.feature p {
+    color: #78877b;
+    font-size: 12px;
+}
+
+/* FOOTER */
+footer {
+    background: #03451f;
+    text-align: center;
+    color: white;
+    padding: 24px 12px;
+    font-size: 13px;
+}
+
+footer span { color: #a8e64e; }
+
+/* RESPONSIVE */
+@media(max-width: 850px) {
+    .input-grid { grid-template-columns: repeat(2, 1fr); }
+    .features { grid-template-columns: repeat(2, 1fr); }
+    .nav-tag { display: none; }
+}
+
+@media(max-width: 550px) {
+    .navbar { justify-content: center; }
+    .nav-links { gap: 14px; }
+    .hero { padding: 55px 7%; }
+    .hero h1 { font-size: 36px; }
+    .input-grid { grid-template-columns: 1fr; }
+    .form-card { padding: 25px 17px; }
+    .form-heading { font-size: 16px; margin-top: -50px; }
+    .features { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<nav class="navbar">
+    <div class="logo">🌿 Agri<span>Smart</span></div>
+
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="#about">About</a>
+        <a href="#recommend">Recommendation</a>
+    </div>
+
+    <div class="nav-tag">🌱 Smart Farming • Better Tomorrow</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>
+            Smart Crop<br>
+            <span>Recommendation System</span>
+        </h1>
+
+        <p>
+            Grow Smarter, Harvest Better!<br>
+            Discover the most suitable crop for your land
+            using soil nutrients and weather conditions.
+        </p>
+
+        <a href="#recommend" class="hero-button">
+            🌱 Grow Smart, Farm Better
+        </a>
+    </div>
+</section>
+
+<!-- RECOMMENDATION FORM -->
+<section class="form-section" id="recommend">
+
+    <div class="heading">
+        <h2>Find the Right Crop for Your Land</h2>
+        <p>Provide your soil and climate details to get an AI-based crop recommendation.</p>
+    </div>
+
+    <div class="form-card">
+
+        <div class="form-heading">
+            🌿 Enter Soil & Weather Information
+        </div>
+
+        <form action="/predict" method="POST">
+
+            <div class="input-grid">
+
+                <div class="input-box">
+                    <label>🌱 Nitrogen (N)</label>
+                    <input type="number" step="any" name="N"
+                    list="nitrogen-options" placeholder="Enter Nitrogen value" required>
+                    <datalist id="nitrogen-options">
+                        <option value="40">
+                        <option value="60">
+                        <option value="80">
+                        <option value="100">
+                    </datalist>
+                    <small class="hint">Soil nitrogen level (kg/ha)</small>
+                </div>
+
+                <div class="input-box">
+                    <label>🌱 Phosphorus (P)</label>
+                    <input type="number" step="any" name="P"
+                    list="phosphorus-options" placeholder="Enter Phosphorus value" required>
+                    <datalist id="phosphorus-options">
+                        <option value="30">
+                        <option value="50">
+                        <option value="60">
+                        <option value="80">
+                    </datalist>
+                    <small class="hint">Soil phosphorus level (kg/ha)</small>
+                </div>
+
+                <div class="input-box">
+                    <label>🌱 Potassium (K)</label>
+                    <input type="number" step="any" name="K"
+                    list="potassium-options" placeholder="Enter Potassium value" required>
+                    <datalist id="potassium-options">
+                        <option value="20">
+                        <option value="40">
+                        <option value="60">
+                        <option value="80">
+                    </datalist>
+                    <small class="hint">Soil potassium level (kg/ha)</small>
+                </div>
+
+                <div class="input-box">
+                    <label>🌡️ Temperature (°C)</label>
+                    <input type="number" step="any" name="temperature"
+                    list="temperature-options" placeholder="Enter Temperature" required>
+                    <datalist id="temperature-options">
+                        <option value="20">
+                        <option value="25">
+                        <option value="30">
+                        <option value="35">
+                    </datalist>
+                    <small class="hint">Average temperature in Celsius</small>
+                </div>
+
+                <div class="input-box">
+                    <label>💧 Humidity (%)</label>
+                    <input type="number" step="any" name="humidity"
+                    list="humidity-options" placeholder="Enter Humidity" required>
+                    <datalist id="humidity-options">
+                        <option value="40">
+                        <option value="60">
+                        <option value="70">
+                        <option value="80">
+                    </datalist>
+                    <small class="hint">Relative humidity percentage</small>
+                </div>
+
+                <div class="input-box">
+                    <label>🧪 Soil pH</label>
+                    <input type="number" step="any" name="ph"
+                    list="ph-options" placeholder="Enter soil pH" required>
+                    <datalist id="ph-options">
+                        <option value="5.5">
+                        <option value="6">
+                        <option value="6.5">
+                        <option value="7">
+                    </datalist>
+                    <small class="hint">Soil acidity or alkalinity level</small>
+                </div>
+
+                <div class="input-box">
+                    <label>🌧️ Rainfall (mm)</label>
+                    <input type="number" step="any" name="rainfall"
+                    list="rainfall-options" placeholder="Enter Rainfall" required>
+                    <datalist id="rainfall-options">
+                        <option value="50">
+                        <option value="100">
+                        <option value="150">
+                        <option value="200">
+                    </datalist>
+                    <small class="hint">Expected rainfall in millimeters</small>
+                </div>
+
+            </div>
+
+            <div class="submit-area">
+                <button type="submit" class="submit-btn">
+                    🌿 Get Crop Recommendation →
+                </button>
+            </div>
+
+        </form>
+
+        {% if prediction %}
+        <div class="result">
+            <h3>🌾 Recommended Crop for Your Land</h3>
+            <div class="crop-name">{{ prediction }}</div>
+            <p>Your crop suggestion is based on the values entered and the trained ML model.</p>
+        </div>
+        {% endif %}
+
+        {% if error %}
+        <div class="error">{{ error }}</div>
+        {% endif %}
+
+    </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="about">
+
+    <div class="feature">
+        <div class="feature-icon">🤖</div>
+        <h3>Smart Recommendations</h3>
+        <p>AI and machine learning based predictions.</p>
+    </div>
+
+    <div class="feature">
+        <div class="feature-icon">🌱</div>
+        <h3>Better Productivity</h3>
+        <p>Make informed farming decisions.</p>
+    </div>
+
+    <div class="feature">
+        <div class="feature-icon">🌍</div>
+        <h3>Sustainable Farming</h3>
+        <p>Support responsible agriculture.</p>
+    </div>
+
+    <div class="feature">
+        <div class="feature-icon">🚜</div>
+        <h3>Empower Farmers</h3>
+        <p>Make farming smarter and easier.</p>
+    </div>
+
+</section>
+
+<footer>
+    © 2026 <span>AgriSmart</span> |
+    Smart Crop Recommendation System |
+    Made for a Greener Tomorrow 🌿
+</footer>
+
+</body>
+</html>
